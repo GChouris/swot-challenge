@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#172554">
+<title>SWOT Challenge | Γιώργος Χούρης</title>
+<style>
+:root{--navy:#172554;--ink:#182230;--muted:#667085;--bg:#f4f6fb;--panel:#fff;--line:#d9dfeb;--s:#16856b;--w:#c18a18;--o:#2677bb;--t:#c43d53}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#172554,#243f7a);color:white;padding:24px 18px 20px;text-align:center}
+.kicker{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8;font-weight:700}
+h1{font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.1;margin:8px 0}
+.subtitle{margin:8px auto 0;max-width:720px;color:#e5eaf7}
+.byline{margin-top:14px;font-size:.9rem;color:#d7e0f6}
+main{max-width:1180px;margin:0 auto;padding:18px}
+.intro{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.stats{font-weight:700;color:var(--navy)}.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}
+.primary{background:var(--navy);color:#fff}.secondary{background:#e8edf7;color:var(--navy)}button:focus-visible,.card:focus-visible{outline:3px solid #f0a83a;outline-offset:2px}
+.layout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.zone{background:var(--panel);border:2px dashed var(--line);border-radius:15px;min-height:260px;padding:10px;transition:.15s}
+.zone.over{border-color:var(--navy);background:#edf2ff}
+.zonehead{display:flex;align-items:center;gap:9px;padding:4px 3px 10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.letter{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:white;font-size:1.2rem;font-weight:900;flex-shrink:0}
+.zone h2{font-size:1rem;margin:0}.zone small{color:var(--muted)}
+.zone[data-zone="S"] .letter{background:var(--s)}.zone[data-zone="W"] .letter{background:var(--w)}
+.zone[data-zone="O"] .letter{background:var(--o)}.zone[data-zone="T"] .letter{background:var(--t)}
+.card{background:#fff;border:1px solid #d9dfeb;border-radius:11px;padding:11px 12px;margin:8px 0;box-shadow:0 2px 5px #1725540a;cursor:grab;touch-action:pan-y}
+.card:active{cursor:grabbing}.card p{margin:0;font-weight:600;font-size:.93rem}
+.card .hint{display:block;color:var(--muted);font-size:.75rem;margin-top:5px}
+.bank{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+.bank h2{font-size:1.05rem;margin:0 0 8px}.bankcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bankcards .card{margin:0}.empty{color:var(--muted);font-size:.88rem;padding:12px 3px}
+.result{display:none;margin-top:16px;background:white;border:1px solid var(--line);border-radius:16px;padding:18px}
+.result.show{display:block}.score{font-size:1.8rem;font-weight:900;color:var(--navy)}
+.feedback{border-top:1px solid var(--line);padding:9px 0}.correct{color:#13795b}.incorrect{color:#b42336}
+footer{text-align:center;padding:22px 12px 30px;color:var(--muted);font-size:.83rem}
+@media(max-width:850px){.layout{grid-template-columns:repeat(2,minmax(0,1fr))}.zone{min-height:190px}.bankcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){main{padding:12px}.layout{gap:8px}.zone{padding:8px}.zone h2{font-size:.9rem}.letter{width:32px;height:32px}.card{padding:10px}.bankcards{grid-template-columns:1fr}.toolbar{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Marketing Lab · Διαδραστική άσκηση</div>
+  <h1>SWOT Challenge</h1>
+  <p class="subtitle">Ταξινόμησε τα επιχειρηματικά δεδομένα στο σωστό πεδίο και έλεγξε τη στρατηγική σου σκέψη.</p>
+  <div class="byline">Σχεδιασμός και εκπαιδευτική επιμέλεια: <strong>Γιώργος Χούρης</strong></div>
+</header>
+<main>
+  <section class="intro">
+    <strong>Οδηγίες:</strong> Μετακίνησε κάθε κάρτα σε μία από τις τέσσερις κατηγορίες. Σε κινητό, μπορείς να πατήσεις μια κάρτα και μετά την κατηγορία στην οποία θέλεις να την τοποθετήσεις. Όταν ολοκληρώσεις, πάτησε «Έλεγχος απαντήσεων».
+    <div style="margin-top:7px;color:#667085;font-size:.9rem">Υπενθύμιση: S και W αφορούν το εσωτερικό περιβάλλον· O και T αφορούν το εξωτερικό περιβάλλον.</div>
+  </section>
+  <div class="toolbar">
+    <div class="stats" id="progress">0 από 20 κάρτες ταξινομημένες</div>
+    <div class="actions">
+      <button class="primary" id="check">Έλεγχος απαντήσεων</button>
+      <button class="secondary" id="reset">Επαναφορά</button>
+    </div>
+  </div>
+  <section class="layout" aria-label="Κατηγορίες SWOT">
+    <div class="zone" data-zone="S"><div class="zonehead"><div class="letter">S</div><div><h2>Δυνατά σημεία</h2><small>Εσωτερικά πλεονεκτήματα</small></div></div><div class="zonecards"></div></div>
+    <div class="zone" data-zone="W"><div class="zonehead"><div class="letter">W</div><div><h2>Αδύνατα σημεία</h2><small>Εσωτερικές ελλείψεις</small></div></div><div class="zonecards"></div></div>
+    <div class="zone" data-zone="O"><div class="zonehead"><div class="letter">O</div><div><h2>Ευκαιρίες</h2><small>Εξωτερικές θετικές εξελίξεις</small></div></div><div class="zonecards"></div></div>
+    <div class="zone" data-zone="T"><div class="zonehead"><div class="letter">T</div><div><h2>Απειλές</h2><small>Εξωτερικοί κίνδυνοι</small></div></div><div class="zonecards"></div></div>
+  </section>
+  <section class="bank">
+    <h2>Κάρτες προς ταξινόμηση</h2>
+    <div class="bankcards" id="bank"></div>
+  </section>
+  <section class="result" id="result" aria-live="polite">
+    <div style="font-weight:800">Αποτέλεσμα δραστηριότητας</div>
+    <div class="score" id="score"></div>
+    <p id="summary"></p>
+    <div id="feedback"></div>
+    <button class="primary" id="again">Προσπάθησε ξανά</button>
+  </section>
+</main>
+<footer>SWOT Challenge · Εκπαιδευτικό υλικό Marketing · Σχεδιασμός: Γιώργος Χούρης</footer>
+<script>
+const items = [
+{id:1,text:"Ισχυρό και αναγνωρίσιμο εμπορικό σήμα",answer:"S",why:"Αποτελεί εσωτερικό άυλο πόρο που διαφοροποιεί την επιχείρηση."},
+{id:2,text:"Πιστό πελατολόγιο",answer:"S",why:"Είναι υφιστάμενο πλεονέκτημα και σχέση που έχει αναπτύξει η επιχείρηση."},
+{id:3,text:"Άρτια εκπαιδευμένο και εξειδικευμένο προσωπικό",answer:"S",why:"Είναι εσωτερική ικανότητα της επιχείρησης."},
+{id:4,text:"Μεγάλο και αποτελεσματικό δίκτυο καταστημάτων",answer:"S",why:"Όταν προσφέρει πλεονέκτημα έναντι των ανταγωνιστών, αποτελεί εσωτερική δύναμη."},
+{id:5,text:"Ισχυρή διαφοροποίηση προϊόντος",answer:"S",why:"Εφόσον προκύπτει από τα χαρακτηριστικά και τις ικανότητες της επιχείρησης, αποτελεί δύναμη."},
+{id:6,text:"Υψηλό λειτουργικό κόστος",answer:"W",why:"Είναι εσωτερικό μειονέκτημα που περιορίζει την αποδοτικότητα."},
+{id:7,text:"Έλλειψη εξειδικευμένου προσωπικού",answer:"W",why:"Αποτελεί εσωτερική έλλειψη ικανότητας ή ανθρώπινων πόρων."},
+{id:8,text:"Παρωχημένος εξοπλισμός παραγωγής",answer:"W",why:"Είναι εσωτερικός περιορισμός που μπορεί να μειώνει την παραγωγικότητα."},
+{id:9,text:"Ανεπαρκής ψηφιακή παρουσία ή απουσία e-shop",answer:"W",why:"Πρόκειται για εσωτερική αδυναμία της επιχείρησης."},
+{id:10,text:"Υψηλό κόστος προϊόντος λόγω εσωτερικής αναποτελεσματικότητας",answer:"W",why:"Η αιτία είναι εσωτερική και επιβαρύνει την ανταγωνιστικότητα."},
+{id:11,text:"Επιδότηση από κατάλληλο πρόγραμμα ΕΣΠΑ",answer:"O",why:"Ένα διαθέσιμο εξωτερικό πρόγραμμα χρηματοδότησης μπορεί να δημιουργήσει ευκαιρία."},
+{id:12,text:"Αύξηση της ζήτησης για οικολογικά προϊόντα",answer:"O",why:"Είναι θετική μεταβολή στην αγορά που η επιχείρηση μπορεί να αξιοποιήσει."},
+{id:13,text:"Αποχώρηση σημαντικού ανταγωνιστή από την τοπική αγορά",answer:"O",why:"Δημιουργεί εξωτερικό περιθώριο για αύξηση μεριδίου αγοράς."},
+{id:14,text:"Νέα τεχνολογία που επιτρέπει αποδοτικότερη παραγωγή",answer:"O",why:"Η τεχνολογική εξέλιξη μπορεί να αξιοποιηθεί ως εξωτερική ευκαιρία."},
+{id:15,text:"Άνοιγμα νέας αγοράς ή νέου τμήματος πελατών",answer:"O",why:"Η δυνατότητα επέκτασης στην αγορά αποτελεί ευκαιρία."},
+{id:16,text:"Άνοδος της τιμής του πετρελαίου και της ενέργειας",answer:"T",why:"Είναι εξωτερική εξέλιξη που μπορεί να αυξήσει το κόστος λειτουργίας και μεταφορών."},
+{id:17,text:"Αύξηση των τιμών των πρώτων υλών από τους προμηθευτές",answer:"T",why:"Η μεταβολή στις τιμές προμήθειας είναι εξωτερικός κίνδυνος."},
+{id:18,text:"Άνοδος των μεταφορικών και των ναύλων",answer:"T",why:"Μπορεί να αυξήσει το κόστος εφοδιασμού και διανομής."},
+{id:19,text:"Είσοδος ισχυρού ανταγωνιστή στην περιοχή",answer:"T",why:"Η νέα ανταγωνιστική πίεση μπορεί να μειώσει πωλήσεις ή μερίδιο αγοράς."},
+{id:20,text:"Μείωση της αγοραστικής δύναμης των καταναλωτών",answer:"T",why:"Η δυσμενής οικονομική εξέλιξη μπορεί να περιορίσει τη ζήτηση."}
+];
+const labels={S:"Δυνατό σημείο (S)",W:"Αδύνατο σημείο (W)",O:"Ευκαιρία (O)",T:"Απειλή (T)"};
+const bank=document.getElementById('bank');
+let selected=null;
+function cardEl(item){
+ const el=document.createElement('div');el.className='card';el.draggable=true;el.tabIndex=0;el.dataset.id=item.id;
+ const p=document.createElement('p');p.textContent=item.text;el.appendChild(p);
+ el.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(item.id));e.dataTransfer.effectAllowed='move'});
+ el.addEventListener('click',()=>{document.querySelectorAll('.card').forEach(c=>c.style.outline='');selected=item.id;el.style.outline='3px solid #f0a83a';document.querySelectorAll('.zone').forEach(z=>z.style.borderColor='#f0a83a')});
+ el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selected=item.id;el.style.outline='3px solid #f0a83a';}});
+ return el;
+}
+function init(){
+ bank.innerHTML='';document.querySelectorAll('.zonecards').forEach(z=>z.innerHTML='');
+ [...items].sort(()=>Math.random()-.5).forEach(item=>bank.appendChild(cardEl(item)));
+ document.getElementById('result').classList.remove('show');updateProgress();
+}
+function place(id,target){
+ const el=document.querySelector('.card[data-id="'+id+'"]');if(!el)return;
+ const dest=target.querySelector('.zonecards')||target;
+ dest.appendChild(el);selected=null;document.querySelectorAll('.zone').forEach(z=>z.style.borderColor='');document.querySelectorAll('.card').forEach(c=>c.style.outline='');updateProgress();
+}
+document.querySelectorAll('.zone').forEach(zone=>{
+ zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('over')});
+ zone.addEventListener('dragleave',()=>zone.classList.remove('over'));
+ zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('over');const id=e.dataTransfer.getData('text/plain');if(id)place(id,zone)});
+ zone.addEventListener('click',()=>{if(selected)place(selected,zone)});
+});
+bank.addEventListener('dragover',e=>e.preventDefault());
+bank.addEventListener('drop',e=>{e.preventDefault();const id=e.dataTransfer.getData('text/plain');if(id)place(id,bank)});
+function updateProgress(){let n=0;document.querySelectorAll('.zonecards .card').forEach(()=>n++);document.getElementById('progress').textContent=n+' από '+items.length+' κάρτες ταξινομημένες';}
+document.getElementById('check').addEventListener('click',()=>{
+ const feedback=document.getElementById('feedback');feedback.innerHTML='';let correct=0;
+ items.forEach(item=>{
+  const el=document.querySelector('.card[data-id="'+item.id+'"]');
+  const zone=el?el.closest('.zone'):null;
+  const got=zone?zone.dataset.zone:null;
+  const ok=got===item.answer;if(ok)correct++;
+  const row=document.createElement('div');row.className='feedback '+(ok?'correct':'incorrect');
+  const strong=document.createElement('strong');strong.textContent=(ok?'Σωστό · ':'Χρειάζεται διόρθωση · ')+item.text;row.appendChild(strong);
+  const detail=document.createElement('div');detail.textContent='Σωστή κατηγορία: '+labels[item.answer]+'. '+item.why;row.appendChild(detail);feedback.appendChild(row);
+ });
+ document.getElementById('score').textContent=correct+' / '+items.length+' σωστές απαντήσεις';
+ document.getElementById('summary').textContent=correct===items.length?'Άριστα! Όλες οι κάρτες ταξινομήθηκαν σωστά.':'Μελέτησε τις εξηγήσεις και δοκίμασε ξανά. Η ταξινόμηση βασίζεται στο αν ο παράγοντας είναι εσωτερικός ή εξωτερικός και στην επίδρασή του.';
+ document.getElementById('result').classList.add('show');document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('reset').addEventListener('click',init);document.getElementById('again').addEventListener('click',init);
+init();
+</script>
+</body>
+</html>
